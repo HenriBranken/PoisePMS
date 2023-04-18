@@ -3,19 +3,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * 
+ * A module for displaying data related to unfinished projects and projects that are overdue.
  * @author Henri Branken
  *
  */
 public class Display {
 	static final String MAIN_TABLE_NAME = "projects";
-	static final String ARCHTS_NAME = "architects";
-	static final String CUSTS_NAME = "customers";
-	static final String CONTRS_NAME = "contractors";
 	static final String SEPARATOR = "+--------------------------------------------------------------+\n";
 	
-	
-
+	/**
+	 * Output all the projects (and their details) that are not finished.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @throws SQLException
+	 */
 	public static void printUnfinishedProjects(Statement statement) throws SQLException {
 		ResultSet resultSet = statement.executeQuery("SELECT * FROM " + MAIN_TABLE_NAME + " WHERE status = 'ongoing' ORDER BY prj_no;");
 		while (resultSet.next()) {
@@ -41,8 +41,14 @@ public class Display {
 		}
 	}
 	
+	/**
+	 * Output all the projects that are unfinished AND past their due date.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @throws SQLException
+	 */
 	public static void printPastDueDate(Statement statement) throws SQLException {
-		ResultSet resultSet = statement.executeQuery("SELECT * FROM " + MAIN_TABLE_NAME + " WHERE prj_due_dte < DATE(NOW()) ORDER BY prj_no;");
+		ResultSet resultSet = statement.executeQuery("SELECT * FROM " + MAIN_TABLE_NAME + " WHERE prj_due_dte < DATE(NOW()) AND " +
+													 "STATUS <> 'finalised' ORDER BY prj_no;");
 		while (resultSet.next()) {
 			String text;
 			text  = "Project Number:  " + resultSet.getInt("prj_no") + "\n";

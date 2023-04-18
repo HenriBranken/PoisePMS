@@ -33,36 +33,49 @@ public class Capture {
 	
 	static Scanner sc = new Scanner(System.in);
 	
+	/**
+	 * Extract the architect name, contractor name, and customer name that are related to a specific project.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SQL query that filters one specific row in the PROJECTS table, and shows it to us.
+	 * @return Return a String Array that contains the architect name, contractor name, customer first name, and customer last name.
+	 * @throws SQLException
+	 */
 	public static String[] extractPeopleInfo(Statement statement, String query) throws SQLException {
 		String archt_name = "";
 		String contr_name = "";
 		String cust_fname = "";
 		String cust_lname = "";
 		
-		String[] nameArr = {archt_name, contr_name, cust_fname, cust_lname};
+		String[] nameArr = new String[4];
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
+			resultSet.next();
 			
 			archt_name = resultSet.getString("archt_name");
 			contr_name = resultSet.getString("contr_name");
-			cust_fname = resultSet.getString("fname");
-			cust_lname = resultSet.getString("lname");
+			cust_fname = resultSet.getString("cust_fname");
+			cust_lname = resultSet.getString("cust_lname");
 			
 			nameArr[0] = archt_name;
 			nameArr[1] = contr_name;
 			nameArr[2] = cust_fname;
 			nameArr[3] = cust_lname;
+
 			return nameArr;
 		}
 		catch (SQLException e) {
 			System.out.println("An error occurred while trying to `executeQuery` the following SQL Query:\n" + 
-				       			query + ".\n" + 
+				       			query + "\n" + 
 					   			"See the stack trace below:\n");
 			e.printStackTrace();
 			return nameArr;
 		}
 	}
 	
+	/**
+	 * Prompt the user to input a new Project Name.
+	 * @return The project entered by the user gets returned to the calling function.
+	 */
 	public static String capturePrjName() {
 		// Initialise an empty `id` string.
 		String prjName = "";
@@ -85,6 +98,10 @@ public class Capture {
 		}
 	}
 	
+	/**
+	 * Prompt the user to enter a new Project Due Date for a certain project.
+	 * @return The due date entered by the user gets returned to the calling function.
+	 */
 	public static String capturePrjDueDte() {
 		// Initialise an empty PrjDueDte:
 		String prjDueDte = "";
@@ -99,6 +116,10 @@ public class Capture {
 		return prjDueDte;
 	}
 	
+	/**
+	 * Prompt the user to enter a new project manager name for a certain project.
+	 * @return The project manager name entered by the user gets returned to the calling function.
+	 */
 	public static String capturePmName() {
 		// Initialise an empty pmName:
 		String pmName = "";
@@ -107,12 +128,16 @@ public class Capture {
 		while (correct.equalsIgnoreCase("n")) {
 			System.out.println(NEW_PM_NAME);
 			pmName = sc.nextLine();
-			System.out.println("Are you happy with \"pm_date = " + pmName + "\"? [y/n]");
+			System.out.println("Are you happy with \"pm_name = " + pmName + "\"? [y/n]");
 			correct = sc.nextLine();
 		}
 		return pmName;
 	}
 	
+	/**
+	 * Prompt the user to enter the Architect Name related to a specific project.
+	 * @return The architect name entered by the user gets returned to the calling function.
+	 */
 	public static String captureArchtName() {
 		// Initialise an empty archtName:
 		String archtName = "";
@@ -121,12 +146,16 @@ public class Capture {
 		while (correct.equalsIgnoreCase("n")) {
 			System.out.println(NEW_ARCHT_NAME);
 			archtName = sc.nextLine();
-			System.out.println("Are you happy with \"pm_date = " + archtName + "\"? [y/n]");
+			System.out.println("Are you happy with \"archt_name = " + archtName + "\"? [y/n]");
 			correct = sc.nextLine();
 		}
 		return archtName;
 	}
 	
+	/**
+	 * Prompt the user to enter the Contractor Name related to a specific project.
+	 * @return The contractor name entered by the user gets returned to the calling function.
+	 */
 	public static String captureContrName() {
 		// Initialise an empty contrName:
 		String contrName = "";
@@ -135,12 +164,16 @@ public class Capture {
 		while (correct.equalsIgnoreCase("n")) {
 			System.out.println(NEW_CONTR_NAME);
 			contrName = sc.nextLine();
-			System.out.println("Are you happy with \"pm_date = " + contrName + "\"? [y/n]");
+			System.out.println("Are you happy with \"contr_name = " + contrName + "\"? [y/n]");
 			correct = sc.nextLine();
 		}
 		return contrName;
 	}
 	
+	/**
+	 * Prompt the user to enter the first name of a customer related to a specific project.
+	 * @return The first name entered by the user gets returned back to the calling function.
+	 */
 	public static String captureCustFname() {
 		// Initialise an empty custFname:
 		String custFname = "";
@@ -155,6 +188,10 @@ public class Capture {
 		return custFname;
 	}
 	
+	/**
+	 * Prompt the user to enter the last name of a customer related to a specific project.
+	 * @return The last name entered by the user gets returned back to the calling function.
+	 */
 	public static String captureCustLname() {
 		// Initialise an empty custLname:
 		String custLname = "";
@@ -169,6 +206,10 @@ public class Capture {
 		return custLname;
 	}
 	
+	/**
+	 * Prompt the user to enter the name of the Structural Engineer related to a new project.
+	 * @return The name of the structural engineer gets returned back to the calling function.
+	 */
 	public static String captureStructEngName() {
 		// Initialise an empty StructEngName:
 		String structEngName = "";
@@ -183,6 +224,10 @@ public class Capture {
 		return structEngName;
 	}
 	
+	/**
+	 * Prompt the user to enter the building type related to a new project.
+	 * @return The building type entered by the user gets returned back to the calling function.
+	 */
 	public static String captureBldgType() {
 		// Initialise an empty bldgType:
 		String bldgType = "";
@@ -191,12 +236,16 @@ public class Capture {
 		while (correct.equalsIgnoreCase("n")) {
 			System.out.println(NEW_BLDG_TYPE);
 			bldgType = sc.nextLine();
-			System.out.println("Are you happy with \"bldgType = " + bldgType + "\"? [y/n]");
+			System.out.println("Are you happy with \"bldg_type = " + bldgType + "\"? [y/n]");
 			correct = sc.nextLine();
 		}
 		return bldgType;
 	}
 	
+	/**
+	 * Prompt the user to enter the physical address of a building related to a new project.
+	 * @return The building type entered by the user gets returned back to the calling function.
+	 */
 	public static String capturePhysAddr() {
 		// Initialise an empty physAddr:
 		String physAddr = "";
@@ -211,6 +260,10 @@ public class Capture {
 		return physAddr;
 	}
 	
+	/**
+	 * Prompt the user to enter the ERF number of a building related to a new project.
+	 * @return The ERF number entered by the user getws returned back to the calling function.
+	 */
 	public static String captureErfNo() {
 		// Initialise an empty erfNo:
 		String erfNo = "-1";
@@ -225,6 +278,10 @@ public class Capture {
 		return erfNo;
 	}
 	
+	/**
+	 * Prompt the user to enter in the total cost related to a new project.
+	 * @return The total cost enetered by the user gets returned back to the calling function.
+	 */
 	public static String captureTotalFee() {
 		// Initialise an empty Total Fee:
 		String totalFee = "";
@@ -239,6 +296,10 @@ public class Capture {
 		return totalFee;
 	}
 	
+	/**
+	 * Prompt the user to enter in the total amount paid to date for a specific project.
+	 * @return The Paid To Date value entered by the user gets returned back to the calling function.
+	 */
 	public static String captureTotalPtd() {
 		// Initialise an empty Total Paid To Date:
 		String totalPtd = "";
@@ -253,6 +314,10 @@ public class Capture {
 		return totalPtd;
 	}
 	
+	/**
+	 * Prompt the user to specify the Status of a specific project.  It is typically either "ongoing" or "finalised".
+	 * @return The Status entered by the user gets returned back to the calling function.
+	 */
 	public static String captureStatus() {
 		// Initialise an empty Total Paid To Date:
 		String status = "";
@@ -267,6 +332,10 @@ public class Capture {
 		return status;
 	}
 	
+	/**
+	 * Prompt the user to specify the Completion Date of a specific Project.  It is in the format of 'YYYY-MM-DD'.
+	 * @return The completion date entered by the user gets returned back to the calling function.
+	 */
 	public static String captureCompltDte() {
 		// Initialise an empty Total Paid To Date:
 		String compltDte = "";
@@ -281,6 +350,10 @@ public class Capture {
 		return compltDte;
 	}
 	
+	/**
+	 * Prompt the user to enter the telephone number of a specific architect in the database.
+	 * @return The telephone number entered by the user gets returned back to the calling function.
+	 */
 	public static String captureArchtTelNo() {
 		// Initialise an empty Architect Telephone Number:
 		String archtTelNo = "";
@@ -295,6 +368,10 @@ public class Capture {
 		return archtTelNo;
 	}
 	
+	/**
+	 * Prompt the user to enter the email address of a specific architect in the database.
+	 * @return The email address entered by the user gets returned back to the calling function.
+	 */
 	public static String captureArchtEmail() {
 		// Initialise an empty Architect Email Address:
 		String archtEmail = "";
@@ -309,6 +386,10 @@ public class Capture {
 		return archtEmail;
 	}
 	
+	/**
+	 * Prompt the user to enter in the physical address of a specific Architect in the database.
+	 * @return The physical address entered by the user 
+	 */
 	public static String captureArchtPhysAddr() {
 		// Initialise an empty Architect Physical Address:
 		String archtPhysAddr = "";

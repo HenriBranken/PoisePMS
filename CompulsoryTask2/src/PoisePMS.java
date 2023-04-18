@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * The ebooks module.  This is the main driver code for the Library Application.
+ * The PoisePMS module.  This is the main driver code for the Database Application.
  * @author Henri Branken
  *
  */
@@ -32,10 +32,10 @@ public class PoisePMS {
 							   "[0]  Exit the main menu\n";	
 	// The driver code:
 	/**
-	 * The driver code behind `ebooks.java`.  For each `while` iteration, the `MENU` is displayed to the user.
+	 * The driver code.  For each `while` iteration, the `MENU` is displayed to the user.
 	 * From that, the user needs to select which option he would like to proceed with, and then press ENTER.
 	 * @param args Not Applicable.
-	 * @throws SQLException If a SQL query does not execute successfully, then a `SQLException` is thrown.
+	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws SQLException{
 		try (Connection connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PWD);
@@ -122,6 +122,7 @@ public class PoisePMS {
 				*/
 				else if (userInput == 9) {
 					Display.printUnfinishedProjects(statement);
+					Implement.pauseExecution();
 				}
 				/*
 				+---------------------------------------------------------------------+
@@ -130,6 +131,7 @@ public class PoisePMS {
 				*/
 				else if (userInput == 10) {
 					Display.printPastDueDate(statement);
+					Implement.pauseExecution();
 				}
 				/*
 				+----------------------------------------------------------------------+
