@@ -154,6 +154,7 @@ public class PoisePMS {
 				*/
 				else if (userInput == 0) {
 					Implement.implementExitProgram();
+					break;
 				}
 				/*
 				+----------------------------------------+

@@ -24,9 +24,6 @@ public class SQLFuncs {
 			
 			// Print out the number of rows, if any, affected by the SQL query execution.
 			System.out.println("Query Complete, " + rowsAffected + " rows affected.\n");
-			
-			System.out.println(PAUSE_MSG);
-			sc.nextLine();
 		}
 		
 		catch (SQLException e) {
@@ -55,13 +52,67 @@ public class SQLFuncs {
 		}
 	}
 	
+	public static void performSelectArchtName(Statement statement, String query) throws SQLException {
+		try {
+			ResultSet resultSet = statement.executeQuery(query);
+			
+			while (resultSet.next()) {
+				String text;
+				text = resultSet.getString("name");
+				System.out.println(text);
+			}
+		}
+		catch (SQLException e) {
+			System.out.println("An error occurred while trying to `executeQuery` the following SQL Query:\n" + 
+	       			           query + ".\n" + 
+		   			           "See the stack trace below:\n");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void performSelectCustName(Statement statement, String query) throws SQLException {
+		try {
+			ResultSet resultSet = statement.executeQuery(query);
+			
+			while (resultSet.next()) {
+				String text;
+				text = resultSet.getString("fname") + " " + resultSet.getString("lname");
+				System.out.println(text);
+			}
+		}
+		catch (SQLException e) {
+			System.out.println("An error occurred while trying to `executeQuery` the following SQL Query:\n" + 
+	       			           query + ".\n" + 
+		   			           "See the stack trace below:\n");
+			e.printStackTrace();
+		}
+	}
+	
+	public static void performSelectContrName(Statement statement, String query) throws SQLException {
+		try {
+			ResultSet resultSet = statement.executeQuery(query);
+			
+			while (resultSet.next()) {
+				String text;
+				text = resultSet.getString("name");
+				System.out.println(text);
+			}
+		}
+		catch (SQLException e) {
+			System.out.println("An error occurred while trying to `executeQuery` the following SQL Query:\n" + 
+	       			           query + ".\n" + 
+		   			           "See the stack trace below:\n");
+			e.printStackTrace();
+		}
+	}
+	
 	public static void performSelectPrjToBeFinalised(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
 			
 			while (resultSet.next()) {
 				String text;
-				text = resultSet.getInt("prj_no") + ", " + resultSet.getString("prj_name") + ", " + resultSet.getString("status") + ".";
+				text = resultSet.getInt("prj_no") + " -> " + resultSet.getString("prj_name") + ", " + resultSet.getString("status") + ".";
 				System.out.println(text);
 			}
 		}
@@ -185,11 +236,11 @@ public class SQLFuncs {
 		try {
 			theInt = Integer.parseInt(identifier);
 			// If the parsing is successful, then `identifier` has to be an Integer, in this case the Project Id.
-			query = "SELECT * FROM PROJECTS WHERE prj_id = " + theInt;
+			query = "SELECT * FROM PROJECTS WHERE prj_no = " + theInt;
 		}
 		catch (NumberFormatException e) {
 			// `identifier` has to be a String.  In this case, the Project Name.
-			query = "SELECT * FROM PROJECTS WHERE prj_name = " + identifier;
+			query = "SELECT * FROM PROJECTS WHERE prj_name = '" + identifier + "';";
 		}
 		
 		try {
@@ -197,9 +248,6 @@ public class SQLFuncs {
 			System.out.println("\nThe Project entry of interest is as follows:\n");
 			
 			performSelectProjects(statement, query);				
-			// The user must press ENTER to continue
-			System.out.println(PAUSE_MSG);
-			sc.nextLine();
 		}
 		catch (SQLException e) {
 			System.out.println(ISOLATE_ERR);
@@ -207,19 +255,15 @@ public class SQLFuncs {
 		}
 	}
 	
-	public static void isolateAndPrintArchtRow(Statement statement, String archt_name) throws SQLException {
+	public static void isolateAndPrintArchtRow(Statement statement, String archtName) throws SQLException {
 		String query;
 
-		query = "SELECT * FROM ARCHITECTS WHERE archt_name = " + archt_name;
+		query = "SELECT * FROM ARCHITECTS WHERE name = '" + archtName + "';";
 		
 		try {
-			// Isolate the architect entry of interest, and display it to the user on the console.			
+			// Isolate the architect entry of interest, and display it to the user on the console.
 			System.out.println("\nThe Architect entry of interest is as follows:\n");
-			
-			performSelectArchitects(statement, query);				
-			// The user must press ENTER to continue
-			System.out.println(PAUSE_MSG);
-			sc.nextLine();
+			performSelectArchitects(statement, query);
 		}
 		catch (SQLException e) {
 			System.out.println(ISOLATE_ERR);
@@ -227,19 +271,16 @@ public class SQLFuncs {
 		}
 	}
 	
-	public static void isolateAndPrintCustRow(Statement statement, String fname, String lname) throws SQLException {
+	public static void isolateAndPrintCustRow(Statement statement, String fName, String lName) throws SQLException {
 		String query;
 
-		query = "SELECT * FROM CUSTOMERS WHERE fname = " + fname + " AND lname = " + lname;
+		query = "SELECT * FROM CUSTOMERS WHERE fname = '" + fName + "'" + " AND lname = '" + lName + "';";
 		
 		try {
 			// Isolate the architect entry of interest, and display it to the user on the console.			
 			System.out.println("\nThe Customer Entry of interest is as follows:\n");
 			
-			performSelectCustomers(statement, query);		
-			// The user must press ENTER to continue
-			System.out.println(PAUSE_MSG);
-			sc.nextLine();
+			performSelectCustomers(statement, query);
 		}
 		catch (SQLException e) {
 			System.out.println(ISOLATE_ERR);
@@ -247,19 +288,16 @@ public class SQLFuncs {
 		}
 	}
 	
-	public static void isolateAndPrintContrRow(Statement statement, String contr_name) throws SQLException {
+	public static void isolateAndPrintContrRow(Statement statement, String contrName) throws SQLException {
 		String query;
 
-		query = "SELECT * FROM CUSTOMERS WHERE contr_name = " + contr_name;
+		query = "SELECT * FROM CONTRACTORS WHERE name = '" + contrName + "';";
 		
 		try {
 			// Isolate the architect entry of interest, and display it to the user on the console.			
 			System.out.println("\nThe Contractor Entry of Interest is as follows:\n");
 			
-			performSelectContractors(statement, query);				
-			// The user must press ENTER to continue
-			System.out.println(PAUSE_MSG);
-			sc.nextLine();
+			performSelectContractors(statement, query);
 		}
 		catch (SQLException e) {
 			System.out.println(ISOLATE_ERR);
