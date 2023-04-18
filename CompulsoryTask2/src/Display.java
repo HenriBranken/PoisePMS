@@ -14,7 +14,7 @@ public class Display {
 	/**
 	 * Output all the projects (and their details) that are not finished.
 	 * @param statement A Direct Line to the database for running our queries.
-	 * @throws SQLException
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
 	 */
 	public static void printUnfinishedProjects(Statement statement) throws SQLException {
 		ResultSet resultSet = statement.executeQuery("SELECT * FROM " + MAIN_TABLE_NAME + " WHERE status = 'ongoing' ORDER BY prj_no;");
@@ -44,7 +44,7 @@ public class Display {
 	/**
 	 * Output all the projects that are unfinished AND past their due date.
 	 * @param statement A Direct Line to the database for running our queries.
-	 * @throws SQLException
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
 	 */
 	public static void printPastDueDate(Statement statement) throws SQLException {
 		ResultSet resultSet = statement.executeQuery("SELECT * FROM " + MAIN_TABLE_NAME + " WHERE prj_due_dte < DATE(NOW()) AND " +

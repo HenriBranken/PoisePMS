@@ -32,10 +32,10 @@ public class PoisePMS {
 							   "[0]  Exit the main menu\n";	
 	// The driver code:
 	/**
-	 * The driver code.  For each `while` iteration, the `MENU` is displayed to the user.
-	 * From that, the user needs to select which option he would like to proceed with, and then press ENTER.
+	 * The driver code.  For each `while` iteration, the `MENU` of options is displayed to the user.
+	 * From that, the user needs to select which option they would like to proceed with, and then press ENTER.
 	 * @param args Not Applicable.
-	 * @throws SQLException
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
 	 */
 	public static void main(String[] args) throws SQLException{
 		try (Connection connection = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PWD);

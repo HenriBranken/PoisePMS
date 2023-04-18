@@ -3,6 +3,12 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.util.Scanner;
 
+/**
+ * A module that that contains functionality to perform various SELECT queries, executeUpdate queries, and other queries for isolating
+ * an entity in a table and displaying it to the console.
+ * @author Henri Branken
+ *
+ */
 public class SQLFuncs {
 	
 	static final String PAUSE_MSG = "\nPlease press ENTER to continue.\n";
@@ -10,12 +16,12 @@ public class SQLFuncs {
 	static Scanner sc = new Scanner(System.in);
 	
 	/**
-	 * A method that implements the `.executeUpdate()` method to bring alterations to the Table, or to display it in a certain format.
+	 * A method that implements the `.executeUpdate()` method to bring alterations to a Table.
 	 * Via this method, we can perform the following SQL functionality: (1) INSERT INTO TABLE_NAME . . ., (2) UPDATE TABLE_NAME . . ., and
 	 * (3) DELETE FROM TABLE_NAME . . .
 	 * @param query The SQL query to be executed.
 	 * @param statement A Direct Line to the database for running our queries.
-	 * @throws SQLException Could not execute the SQL query for some reason.  See the error Stack Trace.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
 	 */
 	public static void executeUpdate(Statement statement, String query) throws SQLException {
 		try {
@@ -34,6 +40,13 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the Project Numbers and Project Names from the PROJECTS table in the format of
+	 * prj_no -> prj_name.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the PROJECTS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectPrjNoPrjName(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -52,6 +65,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the architect names beneath each other.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the ARCHITECTS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectArchtName(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -70,6 +89,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the Customer Names beneath each other.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the CUSTOMERS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectCustName(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -88,6 +113,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the contractor names beneath each other.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the CONTRACTORS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectContrName(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -106,6 +137,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all remaining projects that still needs to be finalised.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the PROJECTS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectPrjToBeFinalised(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -124,6 +161,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the details of projects living in the PROJECTS table.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the PROJECTS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectProjects(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -159,6 +202,12 @@ public class SQLFuncs {
 		}
 	}	
 	
+	/**
+	 * A function that displays all the details of certain rows in the ARCHITECTS table.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the ARCHITECTS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectArchitects(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -182,6 +231,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the details of certain Customers living in the CUSTOMERS table.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the CUSTOMERS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectCustomers(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -205,6 +260,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the details of certain Contractors living in the CONTRACTORS table.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param query A SELECT query on the CONTRACTORS table.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void performSelectContractors(Statement statement, String query) throws SQLException {
 		try {
 			ResultSet resultSet = statement.executeQuery(query);
@@ -228,6 +289,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that prints all the details of one specific project, indicated by identifier, to the console.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param identifier A String variable which is either the Project Number or the Project Name used in the SQL filtering.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void isolateAndPrintPrjRow(Statement statement, String identifier) throws SQLException {
 		String query;
 		
@@ -255,6 +322,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the details of one specific Architect as indicated by the archtName variable.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param archtName The Name of the Architect.  This is used in the SQL filtering to isolate one row.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void isolateAndPrintArchtRow(Statement statement, String archtName) throws SQLException {
 		String query;
 
@@ -271,6 +344,13 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the details of one specific customer, as indicated by the `fname` and `lname` parameters.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param fName The first name of the customer.  This is used in the SQL filtering WHERE statement.
+	 * @param lName The Last Name of the customer.  This is used in the SQL filtering WHERE statement.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void isolateAndPrintCustRow(Statement statement, String fName, String lName) throws SQLException {
 		String query;
 
@@ -288,6 +368,12 @@ public class SQLFuncs {
 		}
 	}
 	
+	/**
+	 * A function that displays all the details of one specific Contractor, as indicated by the `contrName` parameter.
+	 * @param statement A Direct Line to the database for running our queries.
+	 * @param contrName The name of the contractor used in the SQL filtering WHERE clause.
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
+	 */
 	public static void isolateAndPrintContrRow(Statement statement, String contrName) throws SQLException {
 		String query;
 

@@ -3,6 +3,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.sql.Statement;
 
+/**
+ * A module containing all the implementation functionality in order to realise the options in the Main Menu
+ * @author Henri Branken
+ *
+ */
 public class Implement {
 	
 	static Scanner sc = new Scanner(System.in);
@@ -49,6 +54,7 @@ public class Implement {
 	public static void implementAddNewPrj(Statement statement) {
 		String[] prjData = Capture.captureProject();
 		
+		// Extract all the information from the `prjData` array.
 		String prjName = prjData[0];
 		String prjDueDte = prjData[1];
 		String pmName = prjData[2];
@@ -65,6 +71,7 @@ public class Implement {
 		
 		String query;
 		
+		// Query for creating a new project in the PROJECTS table.
 		if (prjName.equalsIgnoreCase("")) {
 			query = "INSERT INTO PROJECTS (prj_due_dte, pm_name, archt_name, contr_name, cust_fname, cust_lname, " +
 		                          "struct_eng_name, bldg_type, phys_addr, erf_no, total_fee, total_ptd" + ") VALUES " +
@@ -103,6 +110,7 @@ public class Implement {
 	 */
 	public static void implementAddNewPerson(Statement statement) {
 		String text;
+		// Choose the type of person you want to add to the database.
 		text  = "What type of person do you want to add?  Please only choose one. (1/2/3)\n";
 		text += "(1) Architect\n";
 		text += "(2) Customer\n";
@@ -116,6 +124,7 @@ public class Implement {
 		if (option == 1) { // 1 -> Architect
 			String[] archtData = Capture.captureArchitect(); 
 			
+			// Extract all the Architect information from the archtData array.
 			String archtName = archtData[0];
 			String archtTelNo = archtData[1];
 			String archtEmail = archtData[2];
@@ -127,6 +136,7 @@ public class Implement {
 		else if (option == 2) { // 2 -> Customer
 			String[] custData = Capture.captureCustomer();
 			
+			// Extract all the Customer information form the custData array.
 			String custFname = custData[0];
 			String custLname = custData[1];
 			String custTelNo = custData[2];
@@ -140,6 +150,7 @@ public class Implement {
 		else { // 3 -> Contractor
 			String[] contrData = Capture.captureContractor(); 
 			
+			// Extract all the Contractor information from the contrData array.
 			String contrName = contrData[0];
 			String contrTelNo = contrData[1];
 			String contrEmail = contrData[2];
@@ -172,7 +183,7 @@ public class Implement {
 	 * @param statement A Direct Line to the database for running our queries.
 	 */
 	public static void implementUpdateInfo(Statement statement) {
-		// Show all the `prj_no` & `prj_name`
+		// Show the user all the current `prj_no` & `prj_name`
 		System.out.println("Here are all the `Project Numbers` along with the associated `Project Names` in the Database:\n");
 		String query = "SELECT prj_no, prj_name FROM PROJECTS ORDER BY prj_no;";
 		
@@ -189,7 +200,7 @@ public class Implement {
 		System.out.println("Please enter the Project Number of the project you would like to update:\n");
 		String prjNo = sc.nextLine();
 		
-		// Show all the details for the selected item
+		// Show all the details of the selected item
 		System.out.println("Here is all the detail associated with Project Number = " + prjNo + ".");
 		try {
 			SQLFuncs.isolateAndPrintPrjRow(statement, prjNo);
@@ -321,6 +332,7 @@ public class Implement {
 	 * @param statement A Direct Line to the database for running our queries.
 	 */
 	public static void implementUpdatePerson(Statement statement) {
+		// As the user what 'type' of person they want to update.
 		System.out.println(WHAT_TYPE_PERSON);
 		int choiceNo = Integer.parseInt(sc.nextLine());
 		
@@ -332,8 +344,9 @@ public class Implement {
 		String query = "";
 		
 		switch (choiceNo) {
-		case 1: // 1 -> Architect
+		case 1: // 1 -> Architect has been chosen.
 			try {
+				// Show all the current arhitects living in the ARCHITECTS table.
 				System.out.println("Here is a list of all the `Architect Names`:\n");
 				query = "SELECT name FROM ARCHITECTS ORDER BY name;";
 				SQLFuncs.performSelectArchtName(statement, query);
@@ -343,9 +356,12 @@ public class Implement {
 				e.printStackTrace();
 				pauseExecution();
 			}
+			
+			// Who do they want to update.
 			System.out.println("Please specify the `name` of the architect you would like to change:\n");
 			identifier = sc.nextLine();
 			
+			// Show all the detail associated with the chosen architect.
 			System.out.println("Here's all the detail associated with the Architect " + identifier + ":\n");
 			try {
 				SQLFuncs.isolateAndPrintArchtRow(statement, identifier);
@@ -357,15 +373,19 @@ public class Implement {
 				pauseExecution();
 			}
 			
+			// Specify what the user wants to change.
 			System.out.println("Please specify which attribute (field name) of the Architect you would like to update:\n"
 					           + "name, tel_no, email, phys_addr?\n");
 			fieldName = sc.nextLine();
 			
+			// Specify the new value for the selected field.
 			System.out.println("Please specify what the new value of " + fieldName + " should be:\n");
 			newVal = sc.nextLine();
 			
+			// Construct the query that will implement the update.
 			query = "UPDATE ARCHITECTS SET " + fieldName + " = '" + newVal + "' WHERE name = '" + identifier + "';";
 			
+			// Perform the actual update
 			try {
 				SQLFuncs.executeUpdate(statement, query);
 				System.out.println("You successfully made an update to the table.\n");
@@ -378,7 +398,8 @@ public class Implement {
 			}
 			
 			break;
-		case 2: // 2 -> Customer
+		case 2: // 2 -> Customer has been chosen
+			// Display a list of all the current Customers.
 			try {
 				System.out.println("Here is a list of all the `Customer First Names` and associated `Customer Last Names`:\n");
 				query = "SELECT fname, lname FROM CUSTOMERS ORDER BY fname, lname;";
@@ -388,12 +409,15 @@ public class Implement {
 				System.out.println("An error occurred with `SQLFuncs.performSelectCustName(statement, query);`.\nSee the stack trace below:\n");
 				e.printStackTrace();
 			}
+			
+			// Enter the name of the customer the user wants to change.
 			System.out.println("Please specify the First Name, `fname`, of the customer you would like to change:\n");
 			fname = sc.nextLine();
 			
 			System.out.println("Please specify the Last Name, `lname`, of the customer you would like to change:\n");
 			lname = sc.nextLine();
 			
+			// Display all the attributes associated with the chosen customer.
 			System.out.println("Here's all the detail associated with the Customer: " + fname + " " + lname + ":\n");
 			try {
 				SQLFuncs.isolateAndPrintCustRow(statement, fname, lname);
@@ -405,16 +429,20 @@ public class Implement {
 				pauseExecution();
 			}
 			
+			// What needs to be changed?
 			System.out.println("Please specify which attribute (field name) of the customer you would like to update:\n"
 					           + "fname, lname, tel_no, email, phys_addr?\n");
 			fieldName = sc.nextLine();
 			
+			// Give the new value to be used to update the old value.
 			System.out.println("Please specify what the new value should be:\n");
 			newVal = sc.nextLine();
 			
+			// Construct a SQL query that would implement the update.
 			query = "UPDATE CUSTOMERS SET " + fieldName + " = '" + newVal + "' WHERE fname = '" + fname +
 					"' AND lname = '" + lname + "';";
 			
+			// Perform the actual update of the customer value.
 			try {
 				SQLFuncs.executeUpdate(statement, query);
 				System.out.println("You successfully made an update to the table.\n");
@@ -426,8 +454,9 @@ public class Implement {
 				pauseExecution();
 			}
 			break;
-		case 3: // 3 -> Contractor
+		case 3: // 3 -> Contractor has been chosen
 			try {
+				// Show a list of all the current Contractor names.
 				System.out.println("Here is a list of all the `Contractors`:\n");
 				query = "SELECT name FROM CONTRACTORS ORDER BY name;";
 				SQLFuncs.performSelectContrName(statement, query);
@@ -437,9 +466,12 @@ public class Implement {
 				e.printStackTrace();
 				pauseExecution();
 			}
+			
+			// Which contractor does the user want to change?
 			System.out.println("Please specify the `name` of the contractor you would like to change:\n");
 			identifier = sc.nextLine();
 			
+			// Show all the details associated with the selected contractor.
 			System.out.println("Here's all the detail associated with the contractor: " + identifier + ":\n");
 			try {
 				SQLFuncs.isolateAndPrintContrRow(statement, identifier);
@@ -451,15 +483,19 @@ public class Implement {
 				pauseExecution();
 			}
 			
+			// What field needs to change?
 			System.out.println("Please specify which attribute (field name) of the contractor you would like to update:\n"
 					           + "name, tel_no, email, phys_addr?\n");
 			fieldName = sc.nextLine();
 			
+			// What should the new value be?
 			System.out.println("Please specify what the new value should be:\n");
 			newVal = sc.nextLine();
 			
+			// Construct a SQL query that would implement the update.
 			query = "UPDATE CONTRACTORS SET " + fieldName + " = '" + newVal + "' WHERE name = '" + identifier + "';";
 			
+			// Perform the actual update itself.
 			try {
 				SQLFuncs.executeUpdate(statement, query);
 				System.out.println("You successfully made an update to the table.\n");
@@ -485,7 +521,6 @@ public class Implement {
 	 */
 	public static void implementDeleteProject(Statement statement) {
 		// Show the project numbers & project names to the user.
-		// Show all the `prj_no` & `prj_name`
 		System.out.println("Here are all the Project Numbers along with all the Project Names in the Database:\n");
 		String query = "SELECT prj_no, prj_name FROM PROJECTS ORDER BY prj_no;";
 		
@@ -519,6 +554,7 @@ public class Implement {
 		System.out.println("Are you sure you want to delete the project?  [y/n]:\n");
 		String delChoice = sc.nextLine();
 		
+		// Perform the actual deletion of the Project.
 		String query2 = "";
 		if (delChoice.equalsIgnoreCase("y")) {
 			query2 = "DELETE FROM PROJECTS WHERE prj_no = " + prjNo + ";";
@@ -551,7 +587,6 @@ public class Implement {
 	 */
 	public static void implementDeleteProjectAndPeople(Statement statement) {
 		// Show the project numbers & project names to the user.
-		// Show all the `prj_no` & `prj_name`
 		System.out.println("Here are all the Project Numbers along with all the Project Names in the Database:\n");
 		String query = "SELECT prj_no, prj_name FROM PROJECTS ORDER BY prj_no;";
 		
@@ -596,6 +631,7 @@ public class Implement {
 	   		           		  "\nSee the stack trace below:\n");
 			e.printStackTrace();
 		}
+		// Extract all the people's names associated with the selected project.
 		archtName = nameArr[0];
 		contrName = nameArr[1];
 		custFname = nameArr[2];
@@ -611,6 +647,7 @@ public class Implement {
 		String queryArcht = "";
 		String queryContr = "";
 		String queryCust = "";
+		// Perform the actual deletion.
 		if (delChoice.equalsIgnoreCase("y")) {
 			queryPrj = "DELETE FROM PROJECTS WHERE prj_no = " + prjNo + ";";
 			queryArcht = "DELETE FROM ARCHITECTS WHERE name = '" + archtName + "'";
@@ -658,6 +695,7 @@ public class Implement {
 		
 		switch (choiceNo) {
 		case 1: // 1 -> Architect
+			// Show all the current architects living in the ARCHITECTS table.
 			System.out.println("Here is a list of all the `Architect Names`:\n");
 			query = "SELECT name FROM ARCHITECTS ORDER BY name;";
 			try {
@@ -669,9 +707,12 @@ public class Implement {
 				e.printStackTrace();
 				pauseExecution();
 			}
-			System.out.println("Please specify the `name` of the architect you would like to change:\n");
+			
+			// Give name of specific architect that needs to be deleted.
+			System.out.println("Please specify the `name` of the architect you would like to delete:\n");
 			identifier = sc.nextLine();
 			
+			// Show all the detail associated with the selected architect.
 			System.out.println("Here's all the detail associated with " + identifier + ":\n");
 			try {
 				SQLFuncs.isolateAndPrintArchtRow(statement, identifier);
@@ -683,11 +724,14 @@ public class Implement {
 				pauseExecution();
 			}
 			
+			// Construct a SQL query that would perform the deletion of the architect as indicated by `identifier`.
 			query = "DELETE FROM ARCHITECTS WHERE name = '" + identifier + "';";
 			
+			// Ask for confirmation regarding the deletion.
 			System.out.println("Are you sure you want to delete this person? [y/n]\n");
 			delChoice = sc.nextLine();
 			
+			// Perform the actual deletion.
 			if (delChoice.equalsIgnoreCase("y")) {
 				try {
 					SQLFuncs.executeUpdate(statement, query);
@@ -704,7 +748,8 @@ public class Implement {
 				pauseExecution();
 			}
 			break;
-		case 2: // 2 -> Customer
+		case 2: // 2 -> Customer.
+			// Show a list of all the Customers living in the CUSTOMERS table.
 			System.out.println("Here is a list of all the `Customer Names`:\n");
 			query = "SELECT fname, lname FROM CUSTOMERS ORDER BY fname, lname;";
 			try {
@@ -716,11 +761,14 @@ public class Implement {
 				e.printStackTrace();
 				pauseExecution();
 			}
+			
+			// Which customer needs to be deleted?
 			System.out.println("Please specify the First Name of the customer you would like to delete:\n");
 			fname = sc.nextLine();
 			System.out.println("Please specify the Last Name of the customer you would like to delete:\n");
 			lname = sc.nextLine();
 			
+			// Show all the detail associated with the chosen customer.
 			System.out.println("Here's all the detail associated with " + fname + " " + lname + ":\n");
 			try {
 				SQLFuncs.isolateAndPrintCustRow(statement, fname, lname);
@@ -732,11 +780,14 @@ public class Implement {
 				pauseExecution();
 			}
 			
+			// Construct a SQL query that would perform the customer deletion.
 			query = "DELETE FROM CUSTOMERS WHERE fname = '" + fname + "' AND lname = '" + lname + "';";
 			
+			// Ask for confirmation regarding the deletion of the customer.
 			System.out.println("Are you sure you want to delete this person? [y/n]\n");
 			delChoice = sc.nextLine();
 			
+			// Proceed with the actual deletion itself.
 			if (delChoice.equalsIgnoreCase("y")) {
 				try {
 					SQLFuncs.executeUpdate(statement, query);
@@ -754,6 +805,7 @@ public class Implement {
 			}
 			break;
 		case 3: // 3 -> Contractor
+			// Display a list of all the current contractors living inside the CONTRACTORS table.
 			System.out.println("Here is a list of all the `Contractor Names`:\n");
 			query = "SELECT name FROM CONTRACTORS ORDER BY name;";
 			try {
@@ -765,9 +817,12 @@ public class Implement {
 				e.printStackTrace();
 				pauseExecution();
 			}
+			
+			// Which contractor needs to be deleted?
 			System.out.println("Please specify the `name` of the contractor you would like to delete:\n");
 			identifier = sc.nextLine();
 			
+			// Show all the detail associated with the chosen CONTRACTOR.
 			System.out.println("Here's all the detail associated with " + identifier + ":\n");
 			try {
 				SQLFuncs.isolateAndPrintContrRow(statement, identifier);
@@ -779,11 +834,14 @@ public class Implement {
 				pauseExecution();
 			}
 			
+			// Construct a query that would perform the deletion of the contractor.
 			query = "DELETE FROM CONTRACTORS WHERE name = '" + identifier + "';";
 			
+			// Ask for confirmation concerning the deletion of the contractor.
 			System.out.println("Are you sure you want to delete this person? [y/n]");
 			delChoice = sc.nextLine();
 			
+			// Proceed with the actual deletion itself.
 			if (delChoice.equalsIgnoreCase("y")) {
 				try {
 					SQLFuncs.executeUpdate(statement, query);
@@ -851,7 +909,7 @@ public class Implement {
 		String query3 = "";
 		String query4 = "";
 		if (answer.equalsIgnoreCase("y")) {
-			try {
+			try { // TODAY's date is used as the completion date.
 				query3 = "UPDATE PROJECTS SET complt_dte = DATE(NOW()) WHERE prj_no = " + prjNo + ";";
 				SQLFuncs.executeUpdate(statement, query3);
 				pauseExecution();
@@ -906,6 +964,7 @@ public class Implement {
 		System.out.println("Enter the project number of the project you would like to see:\n");
 		String prjNo = sc.nextLine();
 		
+		// Show all the detail of the project associated with the chosen Project Number.
 		try {
 			SQLFuncs.isolateAndPrintPrjRow(statement, prjNo);
 			pauseExecution();
@@ -941,10 +1000,11 @@ public class Implement {
 			pauseExecution();
 		}
 		
-		// Ask the user to specify a project number
+		// Ask the user to specify a project name
 		System.out.println("Enter the Project Name of the project you would like to see:\n");
 		String prjName = sc.nextLine();
 		
+		// Display all the project details associated with the chosen project name.
 		try {
 			SQLFuncs.isolateAndPrintPrjRow(statement, prjName);
 			pauseExecution();
@@ -963,7 +1023,7 @@ public class Implement {
 	*/
 	/**
 	 * Exit the main menu and terminate the program.
-	 * To go back to the main menu, the user would need to run the project again.
+	 * To go back to the main menu, the user would need to run PoisePMS again.
 	 */
 	public static void implementExitProgram() {
 		System.out.println(FAREWELL);

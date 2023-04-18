@@ -3,6 +3,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
+/**
+ * A module that includes all the functionality to capture input from the user typing on the keyboard.
+ * These various input values are then returned to the calling functions in `Implementations.java`.
+ * @author Henri Branken
+ *
+ */
 public class Capture {
 	
 	static final String NEW_PRJ_NAME = "What is the Project Name (prj_name)?\n";
@@ -38,7 +44,7 @@ public class Capture {
 	 * @param statement A Direct Line to the database for running our queries.
 	 * @param query A SQL query that filters one specific row in the PROJECTS table, and shows it to us.
 	 * @return Return a String Array that contains the architect name, contractor name, customer first name, and customer last name.
-	 * @throws SQLException
+	 * @throws SQLException Could not execute the SQL query and generate results due to some sort of error.
 	 */
 	public static String[] extractPeopleInfo(Statement statement, String query) throws SQLException {
 		String archt_name = "";
@@ -388,7 +394,7 @@ public class Capture {
 	
 	/**
 	 * Prompt the user to enter in the physical address of a specific Architect in the database.
-	 * @return The physical address entered by the user 
+	 * @return The physical address entered by the user gets returned back to the calling function.
 	 */
 	public static String captureArchtPhysAddr() {
 		// Initialise an empty Architect Physical Address:
@@ -404,6 +410,10 @@ public class Capture {
 		return archtPhysAddr;
 	}
 	
+	/**
+	 * Prompt the user to enter in the telephone number of a specific Customer in the database.
+	 * @return The customer telephone number entered by the user gets returned back to the calling function.
+	 */
 	public static String captureCustTelNo() {
 		// Initialise an empty Customer Telephone Number:
 		String custTelNo = "";
@@ -418,6 +428,10 @@ public class Capture {
 		return custTelNo;
 	}
 	
+	/**
+	 * Prompt the user to enter in the email address of a specific customer in the database.
+	 * @return The customer email address entered by the user gets returned back to the calling function.
+	 */
 	public static String captureCustEmail() {
 		// Initialise an empty Customer Email:
 		String custEmail = "";
@@ -432,6 +446,10 @@ public class Capture {
 		return custEmail;
 	}
 	
+	/**
+	 * Prompt the user to enter in the physical address of a certain customer in the database.
+	 * @return The customer physical address entered in by the user gets returned back to the calling function.
+	 */
 	public static String captureCustPhysAddr() {
 		// Initialise an empty Customer Physical Address:
 		String custPhysAddr = "";
@@ -446,6 +464,10 @@ public class Capture {
 		return custPhysAddr;
 	}
 	
+	/**
+	 * Prompt the user to enter in the telephone number of a certain Contractor in the database.
+	 * @return The telephone number entered by the user gets returned back to the calling function.
+	 */
 	public static String captureContrTelNo() {
 		// Initialise an empty Contractor Telephone Number:
 		String contrTelNo = "";
@@ -460,6 +482,10 @@ public class Capture {
 		return contrTelNo;
 	}
 	
+	/**
+	 * Prompt the user to enter in the email address of a certain Contractor.
+	 * @return The Contractor email address entered by the user gets returned back to the calling function.
+	 */
 	public static String captureContrEmail() {
 		// Initialise an empty Contractor Email:
 		String contrEmail = "";
@@ -474,6 +500,10 @@ public class Capture {
 		return contrEmail;
 	}
 	
+	/**
+	 * Prompt the user to enter in the physical address of a certain Contractor in the database.
+	 * @return The Contractor physical address entered by the user gets returned back to the calling function.
+	 */
 	public static String captureContrPhysAddr() {
 		// Initialise an empty Contractor Physical Address:
 		String contrPhysAddr = "";
@@ -488,6 +518,14 @@ public class Capture {
 		return contrPhysAddr;
 	}
 	
+	/**
+	 * A function that encapsulates a total of 13 different unit functions.  The unit functions are as follows:
+	 * (1) capturePrjName, (2) capturePrjDueDte, (3) capturePmName, (4) captureArchtName, (5) captureContrName,
+	 * (6) captureCustFname, (7) captureCustLname, (8) captureStructEngName, (9) captureBldgType, (10) capturePhysAddr,
+	 * (11) CaptureErfNo, (12) captureTotalFee, (13) captureTotalPtd.
+	 * @return A string array of 13 values gets returned back to the calling function.  These values are then used to construct a
+	 * new project in the PoisePMS Database.
+	 */
 	public static String[] captureProject() {
 		String prjName = capturePrjName();
 		String prjDueDte = capturePrjDueDte();
@@ -509,6 +547,12 @@ public class Capture {
 		return prjData;
 	}
 	
+	/**
+	 * A function that encapsulates 4 other unit functions, which are as follows: (1) captureArchtName, (2) captureArchtTelNo,
+	 * (3) captureArchtEmail, (4) captureArchtPhysAddr.
+	 * @return Return a string array of 4 values back to the calling functions.  These values are then used to construct a new
+	 * Architect entity in the ARCHITECTS table. 
+	 */
 	public static String[] captureArchitect() {
 		String archtName = captureArchtName();
 		String archtTelNo = captureArchtTelNo();
@@ -520,6 +564,12 @@ public class Capture {
 		return archtData;
 	}
 	
+	/**
+	 * A function that encapsulates 5 other unit functions, which are as follows: (1) captureCustFname, (2) captureCustLname,
+	 * (3) captureCustTelno, (4) captureCustEmail, (5) captureCustPhysAddr.
+	 * @return Return an array of five String values back to the calling function. These values are then used to construct a new
+	 * Customer Entity in the CUSTOMERS table.
+	 */
 	public static String[] captureCustomer() {
 		String custFname = captureCustFname();
 		String custLname = captureCustLname();
@@ -532,6 +582,12 @@ public class Capture {
 		return custData;
 	}
 	
+	/**
+	 * A function that encapsulates 4 other unit functions, which are as follows: (1) captureContrName, (2) captureContrTelNo, 
+	 * (3) captureContrEmail, (4) captureContrPhysAddr.
+	 * @return A string array of 4 values gets returned back to the calling function.  These values are then used to construct a new
+	 * Contractor entity in the CONTRACTORS table.
+	 */
 	public static String[] captureContractor() {
 		String contrName = captureContrName();
 		String contrTelNo = captureContrTelNo();
