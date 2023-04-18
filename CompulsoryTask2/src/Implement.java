@@ -27,21 +27,9 @@ public class Implement {
 								       "(13) Total Paid to Date (total_ptd)\n" +
 								       "(14) Status (status)\n" + 
 								       "(15) Completion Date (complt_dte)\n";
-	static final String UPDATE_MSG = "\n+---------------------------------------------------------+\n" + 
-							         "|------The current state of the table is as follows:------|\n" + 
-							         "+---------------------------------------------------------+\n";
-	static final String CLOSING_LINE = "\n+---------------------------------------------------------+\n";
 	static final String FAREWELL = "\nHope to see you soon again. Bye!\n";
 	static final String CORRECTION = "\nYou did not enter a valid Menu Item Number. Please try again:\n";
 	static final String WRONG_OPT = "You chose an invalid option, please try again. . .\n";
-	static final String UPDATE_SUCCESS = "You successfully made an update to the table.\n";
-	static final String UPDATE_FAILURE = "The update to the table was NOT carried out due to some error that occurred.\n";
-	static final String DEL_PRJ_SUCCESS = "You've successfully deleted the specified project from the PROJECTS table.\n";
-	static final String DEL_PRJ_FAILURE = "The specified project could not be deleted due to some error.\n";
-	static final String DEL_SUCCESS = "You've successfully deleted the specified project along with all the people associated with it.\n";
-	static final String DEL_FAILURE = "The project and associated people could not be deleted from the database due to some error.\n";
-	static final String DEL_PERS_SUCCESS = "You've successfully deleted the specified person from the associated table.";
-	static final String DEL_PERS_FAILURE = "The person could not be deleted due to some error.";
 	
 	public static void pauseExecution() {
 		System.out.println(PRESS_ENTER);
@@ -93,7 +81,7 @@ public class Implement {
 			pauseExecution();
 		}
 		catch (SQLException e) {
-			System.out.println("Could not add a new project to the database.  See the stacktrace below:\n");
+			System.out.println("Could not add a new project to the database.\nSee the stacktrace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -178,7 +166,7 @@ public class Implement {
 			SQLFuncs.performSelectPrjNoPrjName(statement, query);
 			pauseExecution();
 		} catch (SQLException e) {
-			System.out.println("Could not execute the following query:\n" + query + "\nSee the stack trace below.");
+			System.out.println("Could not execute `SQLFuncs.performSelectPrjNoPrjName(statement, query)`\nSee the stack trace below.\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -193,7 +181,7 @@ public class Implement {
 			SQLFuncs.isolateAndPrintPrjRow(statement, prjNo);
 			pauseExecution();
 		} catch (SQLException e) {
-			System.out.println("Could not execute the following query:\n" + query + "\nSee the stack trace below.");
+			System.out.println("Could not execute `SQLFuncs.isolateAndPrintPrjRow(statement, prjNo);`\nSee the stack trace below.\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -297,11 +285,11 @@ public class Implement {
 		// Execute the SQL query
 		try {
 			SQLFuncs.executeUpdate(statement, query2);
-			System.out.println(UPDATE_SUCCESS);
+			System.out.println("You've successfully made an update to the table.");
 			pauseExecution();
 		}
 		catch (Exception e) {
-			System.out.println(UPDATE_FAILURE);
+			System.out.println("The update to the table was NOT carried out due to some error that occurred.");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -331,7 +319,7 @@ public class Implement {
 				SQLFuncs.performSelectArchtName(statement, query);
 				pauseExecution();
 			} catch (SQLException e) {
-				System.out.println("An error occurred with `SQLFuncs.performSelectArchtName(statement, query)`.  See the stack trace below:\n");
+				System.out.println("An error occurred with `SQLFuncs.performSelectArchtName(statement, query)`.\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -344,12 +332,12 @@ public class Implement {
 				pauseExecution();
 			} catch (SQLException e) {
 				System.out.println("An error occurred with `SQLFuncs.isolateAndPrintArchtRow(statement, identifier)`." + 
-			                       "See the stack trace below:\n");
+			                       "\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
 			
-			System.out.println("Please specify which attribute (field name) you would like to update:\n"
+			System.out.println("Please specify which attribute (field name) of the Architect you would like to update:\n"
 					           + "name, tel_no, email, phys_addr?\n");
 			fieldName = sc.nextLine();
 			
@@ -360,11 +348,11 @@ public class Implement {
 			
 			try {
 				SQLFuncs.executeUpdate(statement, query);
-				System.out.println(UPDATE_SUCCESS);
+				System.out.println("You successfully made an update to the table.\n");
 				pauseExecution();				
 			}
 			catch (Exception e) {
-				System.out.println(UPDATE_FAILURE);
+				System.out.println("The update to the table was NOT carried out due to some error that occurred.\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -377,7 +365,7 @@ public class Implement {
 				SQLFuncs.performSelectCustName(statement, query);
 				pauseExecution();
 			} catch (SQLException e) {
-				System.out.println("An error occurred with `SQLFuncs.performSelectCustName(statement, query);`.  See the stack trace below:\n");
+				System.out.println("An error occurred with `SQLFuncs.performSelectCustName(statement, query);`.\nSee the stack trace below:\n");
 				e.printStackTrace();
 			}
 			System.out.println("Please specify the First Name, `fname`, of the customer you would like to change:\n");
@@ -392,7 +380,7 @@ public class Implement {
 				pauseExecution();
 			} catch (SQLException e) {
 				System.out.println("An error occurred with `SQLFuncs.isolateAndPrintCustRow(statement, fname, lname)`." + 
-								   "See the stack trace below:\n");
+								   "\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -409,11 +397,11 @@ public class Implement {
 			
 			try {
 				SQLFuncs.executeUpdate(statement, query);
-				System.out.println(UPDATE_SUCCESS);
+				System.out.println("You successfully made an update to the table.\n");
 				pauseExecution();				
 			}
 			catch (Exception e) {
-				System.out.println(UPDATE_FAILURE);
+				System.out.println("The update to the table was NOT carried out due to some error that occurred.\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -425,7 +413,7 @@ public class Implement {
 				SQLFuncs.performSelectContrName(statement, query);
 				pauseExecution();
 			} catch (SQLException e) {
-				System.out.println("An error occurred with `SQLFuncs.performSelectContrName(statement, query)`.  See the stack trace below:\n");
+				System.out.println("An error occurred with `SQLFuncs.performSelectContrName(statement, query)`.\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -438,7 +426,7 @@ public class Implement {
 				pauseExecution();
 			} catch (SQLException e) {
 				System.out.println("An error occurred with `SQLFuncs.isolateAndPrintContrRow(statement, identifier)`."  +
-								   "See the stack trace below:\n");
+								   "\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -454,11 +442,11 @@ public class Implement {
 			
 			try {
 				SQLFuncs.executeUpdate(statement, query);
-				System.out.println(UPDATE_SUCCESS);
+				System.out.println("You successfully made an update to the table.\n");
 				pauseExecution();
 			}
 			catch (Exception e) {
-				System.out.println(UPDATE_FAILURE);
+				System.out.println("The update to the table was NOT carried out due to some error that occurred.\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -482,7 +470,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.performSelectPrjNoPrjName(statement, query)`."  +
-					           "See the stack trace below:\n");
+					           "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -498,7 +486,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.isolateAndPrintPrjRow(statement, prjNo)`."  +
-			           		   "  See the stack trace below:\n");
+			           		   "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -512,19 +500,20 @@ public class Implement {
 			query2 = "DELETE FROM PROJECTS WHERE prj_no = " + prjNo + ";";
 			try {
 				SQLFuncs.executeUpdate(statement, query2);
-				System.out.println(DEL_PRJ_SUCCESS);
+				System.out.println("You've successfully deleted the specified project from the PROJECTS table.\n");
 				pauseExecution();
 			}
 			catch (Exception e) {
-				System.out.println(DEL_PRJ_FAILURE);
+				System.out.println("The specified project could not be deleted due to some error.\n");
 				pauseExecution();
 			}
 		}
 		else { // the `delChoice` is "n". 
-			System.out.println(DEL_PRJ_FAILURE);
+			System.out.println("The specified project could not be deleted due to some error.\n");
 			pauseExecution();
 		}
 	}
+	
 	/*
 	+--------------------------------------------------------------------------------+
 	|-----------[6] Delete a project and all the people associated with it-----------|
@@ -541,7 +530,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.performSelectPrjNoPrjName(statement, query)`."  +
-	           		   		   "See the stack trace below:\n");
+	           		   		   "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -557,7 +546,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.isolateAndPrintPrjRow(statement, prjNo)`."  +
-    		   		           "  See the stack trace below:\n");
+    		   		           "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -573,7 +562,7 @@ public class Implement {
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `Capture.extractPeopleInfo(statement," + 
 							  " \"SELECT * FROM PROJECTS WHERE prj_no = \" + prjNo + \";\")`."  +
-	   		           		  "  See the stack trace below:\n");
+	   		           		  "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -600,19 +589,20 @@ public class Implement {
 				SQLFuncs.executeUpdate(statement, queryArcht);
 				SQLFuncs.executeUpdate(statement, queryContr);
 				SQLFuncs.executeUpdate(statement, queryCust);
-				System.out.println(DEL_SUCCESS);
+				System.out.println("You've successfully deleted the specified project along with all the people associated with it.\n");
 				pauseExecution();
 			}
 			catch (Exception e) {
-				System.out.println(DEL_FAILURE);
+				System.out.println("The project and associated people could not be deleted from the database due to some error.\n");
 				pauseExecution();
 			}
 		}
 		else { // the `delChoice` is "n". 
-			System.out.println(DEL_FAILURE);
+			System.out.println("The project and associated people could not be deleted from the database due to some error.\n");
 			pauseExecution();
 		}
 	}
+	
 	/*
 	+-----------------------------------------+
 	|-----------[7] Delete a person-----------|
@@ -638,7 +628,7 @@ public class Implement {
 				pauseExecution();
 			} catch (SQLException e) {
 				System.out.println("An error occurred with `SQLFuncs.performSelectArchtName(statement, query)`."  +
-		   		                   "See the stack trace below:\n");
+		   		                   "\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -651,7 +641,7 @@ public class Implement {
 				pauseExecution();
 			} catch (SQLException e) {
 				System.out.println("An error occurred with `SQLFuncs.isolateAndPrintArchtRow(statement, identifier)`."  +
-		                           "See the stack trace below:\n");
+		                           "\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -664,16 +654,16 @@ public class Implement {
 			if (delChoice.equalsIgnoreCase("y")) {
 				try {
 					SQLFuncs.executeUpdate(statement, query);
-					System.out.println(DEL_PERS_SUCCESS);
+					System.out.println("You've successfully deleted the specified person from the associated table.");
 					pauseExecution();
 				}
 				catch (Exception e) {
-					System.out.println(DEL_PERS_FAILURE);
+					System.out.println("The person could not be deleted due to some error.");
 					pauseExecution();
 				}
 			}
 			else {
-				System.out.println(DEL_PERS_FAILURE);
+				System.out.println("The person could not be deleted due to some error.");
 				pauseExecution();
 			}
 			break;
@@ -713,16 +703,16 @@ public class Implement {
 			if (delChoice.equalsIgnoreCase("y")) {
 				try {
 					SQLFuncs.executeUpdate(statement, query);
-					System.out.println(DEL_PERS_SUCCESS);
+					System.out.println("You've successfully deleted the specified person from the associated table.");
 					pauseExecution();
 				}
 				catch (Exception e) {
-					System.out.println(DEL_PERS_FAILURE);
+					System.out.println("The person could not be deleted due to some error.");
 					pauseExecution();
 				}
 			}
 			else {
-				System.out.println(DEL_PERS_FAILURE);
+				System.out.println("The person could not be deleted due to some error.");
 				pauseExecution();
 			}
 			break;
@@ -760,21 +750,22 @@ public class Implement {
 			if (delChoice.equalsIgnoreCase("y")) {
 				try {
 					SQLFuncs.executeUpdate(statement, query);
-					System.out.println(DEL_PERS_SUCCESS);
+					System.out.println("You've successfully deleted the specified person from the associated table.");
 					pauseExecution();
 				}
 				catch (Exception e) {
-					System.out.println(DEL_PERS_FAILURE);
+					System.out.println("The person could not be deleted due to some error.");
 					pauseExecution();
 				}
 			}
 			else {  // They do not want to proceed with the deletion.  delChoice is "n".
-				System.out.println(DEL_PERS_FAILURE);
+				System.out.println("The person could not be deleted due to some error.");
 				pauseExecution();
 			}
 			break;
 		}
 	}
+	
 	/*
 	+------------------------------------------------------+
 	|-----------[8] Finalise an existing project-----------|
@@ -789,7 +780,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.performSelectPrjToBeFinalised(statement, query1)`."  +
-                    		   "See the stack trace below:\n");
+                    		   "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -806,7 +797,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.executeUpdate(statement, query2)`."  +
-         		   	   		   "See the stack trace below:\n");
+         		   	   		   "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -824,7 +815,7 @@ public class Implement {
 				pauseExecution();
 			}
 			catch (Exception e) {
-				System.out.println("Could not execute the query:\n" + query3 + "\nSee the stack trace below:\n");
+				System.out.println("Could not execute SQLFuncs.executeUpdate(statement, query3)\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
@@ -838,12 +829,13 @@ public class Implement {
 				pauseExecution();
 			} catch (SQLException e) {
 				System.out.println("An error occurred with `SQLFuncs.executeUpdate(statement, query4)`."  +
-  		   	   		   			   "See the stack trace below:\n");
+  		   	   		   			   "\nSee the stack trace below:\n");
 				e.printStackTrace();
 				pauseExecution();
 			}
 		}
 	}
+	
 	/*
 	+----------------------------------------------------------------------+
 	|-----------[11] Select and show a project by project number-----------|
@@ -859,7 +851,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.performSelectPrjNoPrjName(statement, query)`."  +
-	   		   			       "See the stack trace below:\n");
+	   		   			       "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -873,11 +865,12 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.isolateAndPrintPrjRow(statement, prjNo)`."  +
-	   			               "See the stack trace below:\n");
+	   			               "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
 	}
+	
 	/*
 	+--------------------------------------------------------------------+
 	|-----------[12] Select and show a project by project name-----------|
@@ -893,7 +886,7 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.performSelectPrjNoPrjName(statement, query)`."  +
-		               		   "See the stack trace below:\n");
+		               		   "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
@@ -907,11 +900,12 @@ public class Implement {
 			pauseExecution();
 		} catch (SQLException e) {
 			System.out.println("An error occurred with `SQLFuncs.isolateAndPrintPrjRow(statement, prjName)`."  +
-            		   		   "See the stack trace below:\n");
+            		   		   "\nSee the stack trace below:\n");
 			e.printStackTrace();
 			pauseExecution();
 		}
 	}
+	
 	/*
 	+--------------------------------------------+
 	|-----------[0] Exit the main menu-----------|
@@ -921,6 +915,7 @@ public class Implement {
 		System.out.println(FAREWELL);
 		pauseExecution();
 	}
+	
 	/*
 	+----------------------------------------+
 	|-----------Invalid User Input-----------|
