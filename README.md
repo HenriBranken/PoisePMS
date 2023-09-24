@@ -3,6 +3,7 @@
 <img src="./example_output.png" width=470px />
 
 **Table of Contents**
+
 - [Introduction](#introduction)
 - [Background](#background)
 - [Steps Involved](#steps)
@@ -11,7 +12,9 @@
 <a id="introduction"></a>
 
 ## Introduction
+
 This project showcases competence in the following skills:
+
 - Designing & Implementing a MySQL Database.
 - Writing Java Code to interact with the MySQL database.
 - Utilizing the java.sql library.
@@ -21,8 +24,10 @@ This project showcases competence in the following skills:
 <a id="background"></a>
 
 ## Background
+
 This project involved the creation of a PMS for a firm called "Poised".
 This PMS is basically a Java program with the following functionality:
+
 - Read and Write data about people and projects.
 - Capture information about new projects, and adding it to the database.
 - Update information about existing projects
@@ -34,6 +39,7 @@ This PMS is basically a Java program with the following functionality:
 <a id="steps"></a>
 
 ## Steps involved
+
 - Creating a MySQL database called PoisePMS.
 - Creating Tables which include the following: 1. Projects, 2. Architects, 3. Customers and 4. Contractors
   - Please see the ERD in **`CompulsoryTask1/ERD.png`**
@@ -44,6 +50,7 @@ This PMS is basically a Java program with the following functionality:
 <a id="running"></a>
 
 ## Running the Program:
+
 - Open up the directory **`CompulsoryTask2`** in Eclipse, or your favourite Java IDE.
 - Navigate to **`src/(default package)/PoisePMS.java`**
 - Double-click the Java program to open it up in the code editor space.
@@ -52,5 +59,6 @@ This PMS is basically a Java program with the following functionality:
 - From the Console, further interact with the program by Selecting a Menu Item Number, followed by pressing ENTER.
 - Play around with all the different Menu items to scrutinize the functionality of the program.
 - **Tip:** Ensure that the program `MySQL` in `Services` is up and running.
+- **Tip:** Browse inside **`CompulsoryTask2/doc`** to see the Java documentation.
 
 <img src="./console_menu.png" width=470px />
