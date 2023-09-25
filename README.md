@@ -4,10 +4,17 @@
 
 **Table of Contents**
 
+- [Author](#author)
 - [Introduction](#introduction)
 - [Background](#background)
 - [Steps Involved](#steps)
 - [Running the Program](#running)
+
+## Author
+
+<a id="author"></a>
+
+<a href="https://github.com/HenriBranken" target="_blank">Henri Branken</a>
 
 <a id="introduction"></a>
 
